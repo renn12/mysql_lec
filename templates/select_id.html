@@ -10,3 +10,25 @@
 </tr>
 {% endfor %}
 </table>
+
+insert:
+<form action="POST" method="GET">
+id: <input type="text" name="id"/><br/>
+name: <input type="text" name="name"/><br/>
+phone: <input type="text" name="phone"/><br/>
+<input type="submit" value="submit"/>
+</form>
+<br/><br/>
+update:
+<form action="PUT" method="GET">
+id: <input type="text" name="id"/><br/>
+newid: <input type="text" name="newid"/><br/>
+<input type="submit" value="submit"/>
+</form>
+<br/><br/>
+delete:
+<form action="DELETE" method="GET">
+id: <input type="text" name="id"/><br/>
+<input type="submit" value="submit"/>
+</form>
+

@@ -1,5 +1,5 @@
 import MySQLdb
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
@@ -27,10 +27,13 @@ def get_id(id):
 	db.close()
 	return render_template('select_id.html', data = rs)
 
-@app.route('/POST/<string:id>/<string:name>/<string:phone>')
-def post(id, name, phone):
+@app.route('/POST')
+def post():
 	db = MySQLdb.connect('localhost', 'root', '1111', 'raspberry')
         cur = db.cursor()
+	id = request.args.get('id')
+	name = request.args.get('name')
+	phone = request.args.get('phone')
         sql = "insert into mysql_test value('%s', '%s', '%s')" % (id, name, phone)
 	try:
 		cur.execute(sql)
@@ -44,10 +47,12 @@ def post(id, name, phone):
         #return "<script>document.location.href='/'</script>"
 	return index()
 
-@app.route('/PUT/<string:id>/<string:newid>')
-def put(id, newid):
+@app.route('/PUT')
+def put():
 	db = MySQLdb.connect('localhost', 'root', '1111', 'raspberry')
         cur = db.cursor()
+	id = request.args.get('id')
+	newid = request.args.get('newid')
         sql = "update mysql_test set id='%s' where id='%s'" % (newid, id)
         try:
                 cur.execute(sql)
@@ -59,10 +64,11 @@ def put(id, newid):
         db.close()
         return index()
 
-@app.route('/DELETE/<string:id>')
-def delete(id):
+@app.route('/DELETE')
+def delete():
         db = MySQLdb.connect('localhost', 'root', '1111', 'raspberry')
         cur = db.cursor()
+	id = request.args.get('id')
         sql = "delete from mysql_test where id='%s'" % (id)
         try:
                 cur.execute(sql)
